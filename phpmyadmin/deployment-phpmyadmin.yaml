@@ -41,11 +41,6 @@ spec:
               value: mysql-service.host
             - name: PMA_PORT
               value: "3306"
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                name: mysql-secrets
-                key: password-mysql-secret
       
 ---
 apiVersion: v1
