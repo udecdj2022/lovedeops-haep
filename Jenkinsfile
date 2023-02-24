@@ -83,7 +83,23 @@ pipeline {
     }
   }
  }
-
+         
+   stage('APLICANDO DEPLOYMENTS MYADMIN'){
+   steps{
+    sshagent(['sshsanchez'])
+    {
+     sh 'cd phpmyadmin && scp -r -o StrictHostKeyChecking=no deployment-phpmyadmin.yaml digesetuser@148.213.1.131:/home/digesetuser/'
+      script{
+        try{
+           sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f  deployment-phpmyadmin.yaml --kubeconfig=/home/digesetuser/.kube/config'
+           sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment phpmyadmin-deployment -n haep --kubeconfig=/home/digesetuser/.kube/config'
+           sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment phpmyadmin-deployment -n haep --kubeconfig=/home/digesetuser/.kube/config'
+          }catch(error)
+       {}
+     }
+    }
+  }
+ }
 
    stage('APLICANDO DEPLOYMENTS MYSQL'){
    steps{
@@ -95,25 +111,6 @@ pipeline {
            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f  deployment-mysql-haep.yaml --kubeconfig=/home/digesetuser/.kube/config'
            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment mysql-deployment -n haep --kubeconfig=/home/digesetuser/.kube/config'
            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment mysql-deployment -n haep --kubeconfig=/home/digesetuser/.kube/config'
-          }catch(error)
-       {}
-     }
-    }
-  }
- }
-
-
-
-   stage('APLICANDO DEPLOYMENTS MYADMIN'){
-   steps{
-    sshagent(['sshsanchez'])
-    {
-     sh 'cd phpmyadmin && scp -r -o StrictHostKeyChecking=no deployment-phpmyadmin.yaml digesetuser@148.213.1.131:/home/digesetuser/'
-      script{
-        try{
-           sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f  deployment-phpmyadmin.yaml --kubeconfig=/home/digesetuser/.kube/config'
-           sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment phpmyadmin-deployment -n haep --kubeconfig=/home/digesetuser/.kube/config'
-           sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment phpmyadmin-deployment -n haep --kubeconfig=/home/digesetuser/.kube/config'
           }catch(error)
        {}
      }

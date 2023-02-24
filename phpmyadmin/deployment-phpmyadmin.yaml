@@ -46,3 +46,18 @@ spec:
                 secretKeyRef:
                   name: mysql-secrets
                   key: password-admin-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin-service
+  namespace: haep
+spec:
+  type: ClusterIP
+  selector:
+    app: phpmyadmin-deployment
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
