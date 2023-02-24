@@ -73,7 +73,7 @@ metadata:
   namespace: haep
 spec:
   selector:
-    app: mysql
+    app: mysql-service
   ports:
   - protocol: TCP
     port: 3306
