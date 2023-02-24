@@ -24,7 +24,7 @@ metadata:
   namespace: haep
 type: Opaque
 data:
-  password-mysql-secret: c3VwZXItc2VjcmV0LXBhc3N3b3Jk
+  password-mysql-secret: c3VwZXItc2VjcmV0LXBhc3N3b3JkCg==
 
 
 ---
