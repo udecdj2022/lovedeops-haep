@@ -1,0 +1,50 @@
+kind: Namespace
+metadata:
+  name: haep
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  namespace: haep
+spec:
+  selector:
+   matchLabels:
+    app: app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app
+        role: app
+    spec:
+      containers:
+        - name: app
+          image: udecdj2022/app:vpipeline
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: app
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+  namespace: haep
+  labels:
+    app: app
+spec:
+  selector:
+   app: app
+  type: ExternalName
+  externalName: nginx-internal.service-ns.svc.cluster.local
+  type: ClusterIP
+  ports:
+   - name: http
+     port: 80
+     protocol: TCP
+     targetPort: 80
+  selector:
+    role: app
