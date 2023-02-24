@@ -55,11 +55,16 @@ spec:
               subPath: "mysql"
               name: mysql-data
           env:
-            - name: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_ROOT_PASSWORD  
               valueFrom:
                 secretKeyRef:
                   name: mysql-secrets
                   key: password-mysql-secret
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: password-mysql-secret  
       volumes:
         - name: mysql-data
           persistentVolumeClaim:
