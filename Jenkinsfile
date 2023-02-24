@@ -46,7 +46,7 @@ pipeline {
       steps{
         dir('phpmyadmin'){
         script {
-          dockerimagemyadmin = docker.build admin
+          dockerimagemyadmin = docker.build dockeradmin
         }
       }
     }
