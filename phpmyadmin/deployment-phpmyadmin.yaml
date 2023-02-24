@@ -38,7 +38,7 @@ spec:
             - containerPort: 80
           env:
             - name: PMA_HOST
-              value: mysql-service
+              value: 10.152.183.163
             - name: PMA_PORT
               value: "3306"
             - name: MYSQL_ROOT_PASSWORD
