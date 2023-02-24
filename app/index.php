@@ -1,8 +1,8 @@
 <?php
-$servername = "148.213.5.80:3306";
-$database = "siceuc";
+$servername = "10.152.183.163:3306";
+$database = "febrero";
 $username = "root";
-$password = "secret";
+$password = "super-secret-password";
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Check connection
