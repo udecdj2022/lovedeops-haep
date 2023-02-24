@@ -8,7 +8,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-data-disk
-  namespace: haep
+    #namespace: haep
 spec:
   accessModes:
     - ReadWriteOnce
@@ -21,7 +21,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: mysql-secrets
-  namespace: haep
+    #namespace: haep
 type: Opaque
 data:
   password-mysql-secret: c3VwZXItc2VjcmV0LXBhc3N3b3JkCg==
@@ -32,7 +32,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql-deployment
-  namespace: haep
+    #namespace: haep
   labels:
     app: mysql-deployment
 spec:
@@ -75,7 +75,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql-service
-  namespace: haep
+    #namespace: haep
 spec:
   selector:
     app: mysql-service
