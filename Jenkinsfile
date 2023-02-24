@@ -76,7 +76,7 @@ pipeline {
     }
   }
  }
-}
+
 
    stage('APLICANDO DEPLOYMENTS MYSQL'){
    steps{
@@ -94,7 +94,7 @@ pipeline {
     }
   }
  }
-}
+
 
 
    stage('APLICANDO DEPLOYMENTS MYADMIN'){
@@ -113,14 +113,14 @@ pipeline {
     }
   }
  }
-}
+
 
 
   post{
             success{
             slackSend channel: 'prueba_pipeline_haep', color: 'good', failOnError: true, message: "${custom_msg()}", teamDomain: 'universidadde-bea3869', tokenCredentialId: 'slackpass' }
       }
-
+}
 
   def custom_msg()
   {
