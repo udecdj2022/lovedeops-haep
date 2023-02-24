@@ -1,4 +1,10 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: haep
+
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-data-disk
@@ -9,7 +15,6 @@ spec:
   resources:
     requests:
       storage: 1Gi
----
 
 ---
 apiVersion: v1
