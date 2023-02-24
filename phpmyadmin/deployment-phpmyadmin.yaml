@@ -4,14 +4,14 @@ metadata:
   name: haep
 
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysql-secrets-admin
-  namespace: haep
-type: Opaque
-data:
-  password-admin-secret: c3VwZXItc2VjcmV0LXBhc3N3b3JkCg== 
+#apiVersion: v1
+#kind: Secret
+#metadata:
+#  name: mysql-secrets-admin
+#  namespace: haep
+#type: Opaque
+#data:
+#  password-admin-secret: c3VwZXItc2VjcmV0LXBhc3N3b3JkCg== 
 
 ---
 apiVersion: apps/v1
