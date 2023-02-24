@@ -19,17 +19,20 @@ pipeline {
 
     stage('Build image APP') {
       steps{
+        dir('app'){
         script {
           dockerimageapp = docker.build dockerapp
         }
       }
     }
+  }
 
     stage('Pushing Image APP') {
       environment {
                registryCredential = 'dockerhubhaep'
            }
       steps{
+        dir('app'){
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
             dockerImage.push("vpipeline")
@@ -37,20 +40,24 @@ pipeline {
         }
       }
     }
+  }
 
        stage('Build image MYADMIN') {
       steps{
+        dir('phpmyadmin'){
         script {
           dockerimagemyadmin = docker.build admin
         }
       }
     }
+  }
 
-    stage('Pushing Image APP') {
+    stage('Pushing Image MYADMIN') {
       environment {
                registryCredential = 'dockerhubhaep'
            }
       steps{
+        dir('phpmyadmin'){
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
             dockerImage.push("vpipeline")
@@ -58,7 +65,7 @@ pipeline {
         }
       }
     }
-
+  }
 
    stage('APLICANDO DEPLOYMENTS APP'){
    steps{
