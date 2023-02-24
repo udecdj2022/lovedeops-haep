@@ -35,7 +35,7 @@ pipeline {
         dir('app'){
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("vpipeline")
+            dockerimageapp.push("vpipeline")
           }
         }
       }
@@ -60,7 +60,7 @@ pipeline {
         dir('phpmyadmin'){
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("vpipeline")
+            dockerimagemyadmin.push("vpipeline")
           }
         }
       }
