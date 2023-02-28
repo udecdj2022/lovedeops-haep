@@ -3,15 +3,15 @@ kind: Namespace
 metadata:
   name: haep
 
-#---
-#apiVersion: v1
-#kind: Secret
-#metadata:
-#  name: mysql-secrets-admin
-#  namespace: haep
-#type: Opaque
-#data:
-#  password-admin-secret: c3VwZXItc2VjcmV0LXBhc3N3b3JkCg== 
+    #---
+    #apiVersion: v1
+    #kind: Secret
+    #metadata:
+    #name: mysql-secrets
+    #namespace: haep
+    #type: Opaque
+    #data:
+    #password-admin-secret: c3VwZXItc2VjcmV0LXBhc3N3b3JkCg== 
 
 ---
 apiVersion: apps/v1
@@ -20,16 +20,16 @@ metadata:
   name: phpmyadmin-deployment
   namespace: haep
   labels:
-    app: phpmyadmin-deployment
+    app: phpmyadmin
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: phpmyadmin-deployment
+      app: phpmyadmin
   template:
     metadata:
       labels:
-        app: phpmyadmin-deployment
+        app: phpmyadmin
     spec:
       containers:
         - name: phpmyadmin
@@ -55,7 +55,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: phpmyadmin-deployment
+    app: phpmyadmin
   ports:
   - protocol: TCP
     port: 80

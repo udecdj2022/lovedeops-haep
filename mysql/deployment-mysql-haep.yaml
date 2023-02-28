@@ -24,7 +24,7 @@ metadata:
   namespace: haep
 type: Opaque
 data:
-  password-mysql-secret: c3VwZXItc2VjcmV0LXBhc3N3b3JkCg==
+  password-mysql-secret: c3VwZXItc2VjcmV0LXBhc3N3b3Jk
 
 
 ---
@@ -39,11 +39,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql-deployment
+      app: mysql
   template:
     metadata:
       labels:
-        app: mysql-deployment
+        app: mysql
     spec:
       containers:
         - name: mysql
@@ -73,7 +73,7 @@ metadata:
   namespace: haep
 spec:
   selector:
-    app: mysql-service
+    app: mysql
   ports:
   - protocol: TCP
     port: 3306
