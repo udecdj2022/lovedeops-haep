@@ -24,17 +24,14 @@ metadata:
   namespace: haep
 type: Opaque
 data:
-  password-mysql-secret: c3VwZXItc2VjcmV0LXBhc3N3b3Jk
-
-
+  password: c3VwZXI=
+  
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql-deployment
   namespace: haep
-  labels:
-    app: mysql-deployment
 spec:
   replicas: 1
   selector:
@@ -47,19 +44,21 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql:8.0
-          ports:
-            - containerPort: 3306
-          volumeMounts:
-            - mountPath: "/var/lib/mysql"
-              subPath: "mysql"
-              name: mysql-data
+          image: mysql:latest
           env:
             - name: MYSQL_ROOT_PASSWORD  
               valueFrom:
                 secretKeyRef:
                   name: mysql-secrets
-                  key: password-mysql-secret
+                  key: password
+          ports:
+            - containerPort: 3306
+              name: mysql
+          
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+
       volumes:
         - name: mysql-data
           persistentVolumeClaim:
@@ -74,8 +73,9 @@ metadata:
 spec:
   selector:
     app: mysql
+  type: ClusterIP
   ports:
-  - protocol: TCP
-    port: 3306
-    targetPort: 3306
+    - name: mysql
+      port: 3306
+      targetPort: 3306
 

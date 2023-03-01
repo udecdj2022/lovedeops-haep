@@ -2,25 +2,12 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: haep
-
-    #---
-    #apiVersion: v1
-    #kind: Secret
-    #metadata:
-    #name: mysql-secrets
-    #namespace: haep
-    #type: Opaque
-    #data:
-    #password-admin-secret: c3VwZXItc2VjcmV0LXBhc3N3b3JkCg== 
-
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: phpmyadmin-deployment
   namespace: haep
-  labels:
-    app: phpmyadmin
 spec:
   replicas: 1
   selector:
@@ -39,13 +26,19 @@ spec:
           env:
             - name: PMA_HOST
               value: mysql-service
-            - name: PMA_PORT
-              value: "3306"
-            - name: MYSQL_ROOT_PASSWORD
+            - name: PMA_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mysql-secrets
-                  key: password-mysql-secret
+                  key: password
+      
+          volumeMounts:
+            - name: sessions
+              mountPath: /sessions
+      volumes:
+        - name: sessions
+          emptyDir: {}
+
 ---
 apiVersion: v1
 kind: Service
