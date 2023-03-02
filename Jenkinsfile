@@ -76,7 +76,7 @@ pipeline {
         try{
            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f  deployment-haep.yaml --kubeconfig=/home/digesetuser/.kube/config'
            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment app -n haep --kubeconfig=/home/digesetuser/.kube/config'
-           sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment app -n haep --kubeconfig=/home/digesetuser/.kube/config'
+//           sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment app -n haep --kubeconfig=/home/digesetuser/.kube/config'
           }catch(error)
        {}
      }
@@ -93,7 +93,7 @@ pipeline {
         try{
            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f  deployment-mysql-haep8.yaml --kubeconfig=/home/digesetuser/.kube/config'
            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment mysql-deployment -n haep --kubeconfig=/home/digesetuser/.kube/config'
-           sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment mysql-deployment -n haep --kubeconfig=/home/digesetuser/.kube/config'
+//           sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment mysql-deployment -n haep --kubeconfig=/home/digesetuser/.kube/config'
           }catch(error)
        {}
      }
@@ -111,7 +111,7 @@ pipeline {
         try{
            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl apply -f  deployment-phpmyadmin8.yaml --kubeconfig=/home/digesetuser/.kube/config'
            sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout restart deployment phpmyadmin-deployment -n haep --kubeconfig=/home/digesetuser/.kube/config'
-           sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment phpmyadmin-deployment -n haep --kubeconfig=/home/digesetuser/.kube/config'
+//           sh 'ssh digesetuser@148.213.1.131 microk8s.kubectl rollout status deployment phpmyadmin-deployment -n haep --kubeconfig=/home/digesetuser/.kube/config'
           }catch(error)
        {}
      }
