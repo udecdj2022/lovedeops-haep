@@ -24,7 +24,7 @@ metadata:
   namespace: haep
 type: Opaque
 data:
-  password: c3VwZXI=
+  password: dW5pdmVyc2lkYWQ=
   
 ---
 apiVersion: apps/v1
