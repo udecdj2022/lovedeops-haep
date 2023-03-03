@@ -21,6 +21,7 @@ spec:
       containers:
         - name: phpmyadmin
           image: udecdj2022/phpmyadmin:vpipeline
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           env:
