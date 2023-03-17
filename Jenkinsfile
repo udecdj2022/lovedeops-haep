@@ -27,7 +27,7 @@ pipeline {
             -v $(pwd):/usr/src \
             sonarsource/sonar-scanner-cli \
             -Dsonar.host.url=http://scanner.ucol.mx:9000 \
-            -Dsonar.login=${SONAR_TOKEN} \
+            -Dsonar.login=\${SONAR_TOKEN} \
             -Dsonar.projectKey=app \
             -Dsonar.sources=. \
             -Dsonar.projectName=app \
