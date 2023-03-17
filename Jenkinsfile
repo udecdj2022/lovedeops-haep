@@ -25,12 +25,12 @@ pipeline {
         withCredentials([string(credentialsId: 'sonarqubeGlobal', variable: 'SONAR_TOKEN')]) {
           sh 'docker run --rm \
             --network host \
-            -v $(pwd):/usr/src \
+            -v /var/jenkins_home/workspace/lovedevops-haep/app:/usr/src \
             sonarsource/sonar-scanner-cli \
             -Dsonar.host.url=http://scanner.ucol.mx:9000 \
             -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 \
             -Dsonar.projectKey=app \
-            -Dsonar.sources=./app \
+            -Dsonar.sources=. \
             -Dsonar.projectName=app \
             -Dsonar.projectVersion=1.0 \
             -Dsonar.projectDescription=app \
