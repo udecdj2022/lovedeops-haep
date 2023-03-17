@@ -14,7 +14,15 @@ pipeline {
 
     stage('Checkout Code') {
       steps {
-        git credentialsId: 'githubhernan', url: 'https://github.com/udecdj2022/lovedeops-haep.git'
+        git credentialsId: 'githubhernan', url: 'https://github.com/udecdj2022/lovedeops-haep.git', branch:'main'
+      }
+    }
+
+
+         stage('Checkout 2') {
+      steps {
+        // Checkout your PHP code from the repository
+        git url: 'https://github.com/udecdj2022/lovedeops-haep.git'
       }
     }
 
