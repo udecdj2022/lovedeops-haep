@@ -14,7 +14,7 @@ pipeline {
 
     stage('Checkout Code') {
       steps {
-        git credentialsId: 'githubhernan', url: 'https://github.com/udecdj2022/lovedeops-haep.git', branch:'main'
+        git credentialsId: 'githubhernan', url: 'https://github.com/udecdj2022/lovedeops-haep.git'
       }
     }
 
