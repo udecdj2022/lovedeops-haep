@@ -18,20 +18,28 @@ pipeline {
       }
     }
 
-    stage('SonarQube analysis') {
-    steps {
-        withSonarQubeEnv('scanner') {
-            sh 'sonar-scanner \
-                -Dsonar.projectKey=app \
-                -Dsonar.projectName="app" \
-                -Dsonar.projectVersion=1.0 \
-                -Dsonar.sources=src \
-                -Dsonar.php.tests.reportPath=tests/logs/junit.xml \
-                -Dsonar.php.coverage.reportPaths=coverage.xml \
-                -Dsonar.host.url=http://scanner.ucol.mx:9000 \
-                -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87'
+     stage('SonarQube analysis') {
+      steps {
+        // Run the SonarQube Scanner container inside the Jenkins container and send the result to the server
+        withCredentials([string(credentialsId: 'sonarqubeGlobal', variable: 'SONAR_TOKEN')]) {
+          sh "docker run --rm \
+            --network host \
+            -v $(pwd):/usr/src \
+            sonarsource/sonar-scanner-cli \
+            -Dsonar.host.url=http://scanner.ucol.mx:9000 \
+            -Dsonar.login=${SONAR_TOKEN} \
+            -Dsonar.projectKey=app \
+            -Dsonar.sources=. \
+            -Dsonar.projectName=app \
+            -Dsonar.projectVersion=1.0 \
+            -Dsonar.projectDescription=app \
+            -Dsonar.language=php \
+            -Dsonar.php.coverage.reportPaths=coverage.xml \
+            -Dsonar.php.tests.reportPath=phpunit.xml"
         }
+      }
     }
+  }
 }
 
 
