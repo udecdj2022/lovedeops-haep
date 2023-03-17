@@ -8,6 +8,10 @@ pipeline {
   }
 
   agent any
+  
+  tools{
+  	maven "MAVEN_HOME"
+  }
 
   stages {
 
@@ -15,6 +19,16 @@ pipeline {
       steps {
         git credentialsId: 'githubhernan', url: 'https://github.com/udecdj2022/lovedeops-haep.git', branch:'main'
       }
+    }
+
+    stage('Sonar'){
+      steps {
+         timeout(time: 2, unit: 'MINUTES'){
+            withSonarQubeEnv('scanner'){
+              sh "mvn sonar:sonar -Pcoverage"
+              }
+            }
+       }
     }
 
     stage('Build image APP') {
@@ -67,15 +81,15 @@ pipeline {
     }
   }
 
-   stage('Static Code Analysis') {
-   steps {
-      dir('app'){
-      withSonarQubeEnv('scanner') {
-       sh 'mvn sonar:sonar -Dsonar.language=php'
-        }
-      }
-    }
-  }
+//   stage('Static Code Analysis') {
+//   steps {
+//      dir('app'){
+//      withSonarQubeEnv('scanner') {
+//       sh 'mvn sonar:sonar -Dsonar.language=php'
+//        }
+//      }
+//    }
+//  }
 
    stage('APLICANDO DEPLOYMENTS APP'){
    steps{
