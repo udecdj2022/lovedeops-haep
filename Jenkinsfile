@@ -35,6 +35,7 @@ pipeline {
             -Dsonar.projectDescription=app \
             -Dsonar.language=php \
             -Dsonar.php.coverage.reportPaths=coverage.xml \
+	    -Dsonar.scm.provider=git \
             -Dsonar.php.tests.reportPath=phpunit.xml'
         }
       }
