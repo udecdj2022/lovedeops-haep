@@ -30,7 +30,7 @@ pipeline {
             -Dsonar.host.url=http://scanner.ucol.mx:9000 \
             -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 \
             -Dsonar.projectKey=app \
-            -Dsonar.sources=app \
+            -Dsonar.sources=./app \
             -Dsonar.projectName=app \
             -Dsonar.projectVersion=1.0 \
             -Dsonar.projectDescription=app \
