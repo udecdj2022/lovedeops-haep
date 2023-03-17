@@ -20,6 +20,7 @@ pipeline {
 
      stage('SonarQube analysis') {
       steps {
+        dir('app'){
         // Run the SonarQube Scanner container inside the Jenkins container and send the result to the server
         withCredentials([string(credentialsId: 'sonarqubeGlobal', variable: 'SONAR_TOKEN')]) {
           sh 'docker run --rm \
@@ -39,7 +40,7 @@ pipeline {
         }
       }
     }
-  
+  }
 
 
     stage('Build image APP') {
