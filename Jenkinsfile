@@ -67,6 +67,15 @@ pipeline {
     }
   }
 
+   stage('Static Code Analysis') {
+   steps {
+      dir('app')
+      withSonarQubeEnv('SonarQube') {
+        sh 'mvn sonar:sonar -Dsonar.host.url=http://scanner.ucol.mx -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87'
+        }
+      }
+    }
+
    stage('APLICANDO DEPLOYMENTS APP'){
    steps{
     sshagent(['sshsanchez'])

@@ -4,29 +4,6 @@ metadata:
   name: haep
 
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-data-disk
-  namespace: haep
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysql-secrets
-  namespace: haep
-type: Opaque
-data:
-  password: dW5pdmVyc2lkYWQ=
-  
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -45,6 +22,7 @@ spec:
       containers:
         - name: mysql
           image: mysql:latest
+          imagePullPolicy: Always
           env:
             - name: MYSQL_ROOT_PASSWORD  
               valueFrom:
