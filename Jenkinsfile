@@ -39,8 +39,7 @@ pipeline {
         }
       }
     }
-  }
-}
+  
 
 
     stage('Build image APP') {
