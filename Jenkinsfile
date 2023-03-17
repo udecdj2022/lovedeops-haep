@@ -71,7 +71,7 @@ pipeline {
    steps {
       dir('app'){
       withSonarQubeEnv('scanner') {
-       sh 'sonar-scanner'
+       sh 'mvn sonar:sonar -Dsonar.language=php'
         }
       }
     }
