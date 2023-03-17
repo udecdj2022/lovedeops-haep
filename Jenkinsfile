@@ -9,9 +9,6 @@ pipeline {
 
   agent any
   
-  tools{
-  	maven "MAVEN_HOME"
-  }
 
   stages {
 
@@ -21,15 +18,22 @@ pipeline {
       }
     }
 
-    stage('Sonar'){
-      steps {
-         timeout(time: 2, unit: 'MINUTES'){
-            withSonarQubeEnv('scanner'){
-              sh "mvn sonar:sonar -Pcoverage"
-              }
-            }
-       }
+    stage('SonarQube analysis') {
+    steps {
+        withSonarQubeEnv('SonarQube') {
+            sh 'sonar-scanner \
+                -Dsonar.projectKey=app \
+                -Dsonar.projectName="app" \
+                -Dsonar.projectVersion=1.0 \
+                -Dsonar.sources=src \
+                -Dsonar.php.tests.reportPath=tests/logs/junit.xml \
+                -Dsonar.php.coverage.reportPaths=coverage.xml \
+                -Dsonar.host.url=http://scanner.ucol.mx:9000 \
+                -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87'
+        }
     }
+}
+
 
     stage('Build image APP') {
       steps{
