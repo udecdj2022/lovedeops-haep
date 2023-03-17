@@ -20,6 +20,7 @@ pipeline {
 
      stage('SonarQube analysis') {
       steps {
+        sh "cd /var/jenkins_home/workspace/lovedevops-haep/"
         // Run the SonarQube Scanner container inside the Jenkins container and send the result to the server
         withCredentials([string(credentialsId: 'sonarqubeGlobal', variable: 'SONAR_TOKEN')]) {
           sh 'docker run --rm \
@@ -29,7 +30,7 @@ pipeline {
             -Dsonar.host.url=http://scanner.ucol.mx:9000 \
             -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 \
             -Dsonar.projectKey=app \
-            -Dsonar.sources=./app \
+            -Dsonar.sources=app \
             -Dsonar.projectName=app \
             -Dsonar.projectVersion=1.0 \
             -Dsonar.projectDescription=app \
@@ -173,4 +174,3 @@ pipeline {
   return JENKINS_LOG
   }
 
-//
