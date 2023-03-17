@@ -25,7 +25,6 @@ pipeline {
         withCredentials([string(credentialsId: 'sonarqubeGlobal', variable: 'SONAR_TOKEN')]) {
           sh 'docker run --rm \
             --network host \
-            //-v $(pwd):/usr/src \
             -v $(pwd)/app:/usr/src \
             sonarsource/sonar-scanner-cli \
             -Dsonar.host.url=http://scanner.ucol.mx:9000 \
