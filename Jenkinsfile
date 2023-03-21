@@ -17,45 +17,23 @@ pipeline {
         git credentialsId: 'githubhernan', url: 'https://github.com/udecdj2022/lovedeops-haep.git', branch:'main'
       }
     }
-
-    stage('Install SonarQube Scanner') {
-      steps {
-        sh 'curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.0.2311-linux.zip'
-        sh 'unzip sonar-scanner-cli-4.6.0.2311-linux.zip'
-        sh 'rm -rf /opt/sonar-scanner/sonar-scanner-4.6.0.2311-linux'
-        sh 'mv -f sonar-scanner-4.6.0.2311-linux /opt/sonar-scanner'
-        sh 'rm sonar-scanner-cli-4.6.0.2311-linux.zip'
-        sh '''echo '#!/bin/bash
-         export PATH=$PATH:/opt/sonar-scanner/sonar-scanner-4.6.0.2311-linux/bin
-         ' > set_path.sh'''
-        sh 'source set_path.sh'
-      }
-    }
-
-    stage('SonarQube analysis') {
-      steps {
-       script {
-        sh "cd /var/jenkins_home/workspace/lovedevops-haep/app"
-        def appDir = sh(script: 'echo $WORKSPACE/app', returnStdout: true).trim()
-        // Run the SonarQube Scanner and send the result to the server
-        withCredentials([string(credentialsId: 'sonarqubeGlobal', variable: 'SONAR_TOKEN')]) {
-          sh '. /root/.bashrc && sonar-scanner \
-            -Dsonar.host.url=http://scanner.ucol.mx:9000 \
-            -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 \
-            -Dsonar.projectKey=app \
-            -Dsonar.sources=$appDir \
-            -Dsonar.projectName=app \
-            -Dsonar.projectVersion=1.0 \
-            -Dsonar.projectDescription=app \
-            -Dsonar.language=php \
-            -Dsonar.php.coverage.reportPaths=coverage.xml \
-            -Dsonar.php.tests.reportPath=phpunit.xml'
+ 
+   stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh 'sonar-scanner \
+                        -Dsonar.projectKey=app \
+                        -Dsonar.projectName=app \
+                        -Dsonar.projectVersion=1.0 \
+                        -Dsonar.sources=app \
+                        -Dsonar.language=php \
+                        -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 \
+                        -Dsonar.host.url=http://scanner.ucol.mx:9000'
+                }
+            }
         }
-      }
-    }
-  }
 
-
+  
 
     stage('Build image APP') {
       steps{
