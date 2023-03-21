@@ -39,10 +39,6 @@ pipeline {
   }
 }
 
-Este script utiliza la imagen de Jenkins, y en la etapa de "Install SonarQube Scanner" descarga el archivo zip de la última versión del SonarScanner CLI para Linux, lo descomprime en /opt/sonar-scanner, crea un enlace simbólico a /usr/bin/sonar-scanner y finalmente elimina el archivo zip.
-
-Luego, en la etapa de "Son
-Error in body stream
 
     stage('Build image APP') {
       steps{
