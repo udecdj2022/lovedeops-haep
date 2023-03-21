@@ -23,7 +23,7 @@ pipeline {
    stage('Static Code Analysis') {
       steps {
         withSonarQubeEnv('sonarqube') {
-          sh '/opt/sonar-scanner/bin/sonar-scanner \
+          sh '"${env.SONAR_SCANNER_HOME}/bin/sonar-scanner" \
               -Dsonar.projectKey=app \
               -Dsonar.projectName=app \
               -Dsonar.projectVersion=1.0 \
