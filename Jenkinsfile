@@ -21,12 +21,13 @@ pipeline {
 
      stage('SonarTests') {
         steps{
+           script{
             docker.image('newtmitch/sonar-scanner').inside('-v /var/run/docker.sock:/var/run/docker.sock --entrypoint=""') {
             sh "/usr/local/bin/sonar-scanner --version"
-        }
+       }
     }
- }
-
+  }
+}
 
     stage('Build image APP') {
       steps{
