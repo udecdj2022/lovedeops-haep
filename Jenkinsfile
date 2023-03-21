@@ -9,12 +9,6 @@ pipeline {
 
   agent any
  
-  tools {
-        // Definir la herramienta de SonarScanner
-        sonarScanner 'SonarScanner 4.8.0.2856'
-    }
-    
-  
 
   stages {
 
