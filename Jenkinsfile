@@ -29,7 +29,7 @@ pipeline {
               -Dsonar.projectVersion=1.0 \
               -Dsonar.sources=app \
               -Dsonar.language=php \
-              -Dsonar.login=\$sonarGlobal \
+              -Dsonar.login=squ_d388b4c8df86a8b171501c06a2b90592dbadaaf0 \
               -Dsonar.host.url=http://scanner.ucol.mx:9000 \
               -Dsonar.report.export.path=sonar-report.json"
         }
