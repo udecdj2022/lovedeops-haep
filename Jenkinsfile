@@ -22,14 +22,15 @@ pipeline {
  
    stage('Static Code Analysis') {
       steps {
+        echo "Token: ${sonarqubeGlobal}"
         withSonarQubeEnv('sonarqube') {
-          sh ""${env.SONAR_SCANNER_HOME}"/bin/sonar-scanner -X \
+          sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner -X \
               -Dsonar.projectKey=app \
               -Dsonar.projectName=app \
               -Dsonar.projectVersion=1.0 \
               -Dsonar.sources=app \
               -Dsonar.language=php \
-              -Dsonar.login="${env.sonarqubeGlobal}" \
+              -Dsonar.login=${env.sonarqubeGlobal} \
               -Dsonar.host.url=http://scanner.ucol.mx:9000 \
               -Dsonar.report.export.path=sonar-report.json"
         }
