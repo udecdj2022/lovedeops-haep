@@ -18,17 +18,31 @@ pipeline {
       }
     }
 
-
-     stage('SonarTests') {
-        steps{
-           script{
-            docker.image('newtmitch/sonar-scanner').inside('-v /var/run/docker.sock:/var/run/docker.sock --entrypoint=""') {
-            sh "/usr/local/bin/sonar-scanner --version"
-            sh "/usr/local/bin/sonar-scanner -Dsonar.host.url=http://scanner.ucol.mx:9000 -Dsonar.sources=. -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 -Dsonar.projectKey=app -Dsonar.projectName=app -Dsonar.language=php -Dsonar.projectVersion=1.0 -Dsonar.projectDescription=app -Dsonar.php.coverage.reportPaths=coverage.xml -Dsonar.php.tests.reportPath=phpunit.xml"
-       }
+    stage('SonarQube analysis') {
+      steps {
+        // Run the SonarQube Scanner and send the result to the server
+        withCredentials([string(credentialsId: 'sonarqubeGlobal', variable: 'SONAR_TOKEN')]) {
+          sh 'sonar-scanner \
+            -Dsonar.host.url=http://scanner.ucol.mx:9000 \
+            -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 \
+            -Dsonar.projectKey=app \
+            -Dsonar.sources=. \
+            -Dsonar.projectName=app \
+            -Dsonar.projectVersion=1.0 \
+            -Dsonar.projectDescription=app \
+            -Dsonar.language=php \
+            -Dsonar.php.coverage.reportPaths=coverage.xml \
+            -Dsonar.php.tests.reportPath=phpunit.xml'
+        }
+      }
     }
   }
 }
+
+Este script utiliza la imagen de Jenkins, y en la etapa de "Install SonarQube Scanner" descarga el archivo zip de la última versión del SonarScanner CLI para Linux, lo descomprime en /opt/sonar-scanner, crea un enlace simbólico a /usr/bin/sonar-scanner y finalmente elimina el archivo zip.
+
+Luego, en la etapa de "Son
+Error in body stream
 
     stage('Build image APP') {
       steps{
