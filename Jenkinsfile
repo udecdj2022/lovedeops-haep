@@ -24,7 +24,7 @@ stage('SonarTests') {
             sh "/usr/local/bin/sonar-scanner --version"
         }
     }
-} 
+ 
 
 
     stage('Build image APP') {
