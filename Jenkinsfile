@@ -24,6 +24,7 @@ pipeline {
            script{
             docker.image('newtmitch/sonar-scanner').inside('-v /var/run/docker.sock:/var/run/docker.sock --entrypoint=""') {
             sh "/usr/local/bin/sonar-scanner --version"
+            sh "/usr/local/bin/sonar-scanner -Dsonar.host.url=http://scanner.ucol.mx:9000 -Dsonar.sources=. -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 -Dsonar.projectKey=app -Dsonar.projectName=app -Dsonar.language=php -Dsonar.projectVersion=1.0 -Dsonar.projectDescription=app -Dsonar.php.coverage.reportPaths=coverage.xml -Dsonar.php.tests.reportPath=phpunit.xml"
        }
     }
   }
