@@ -23,7 +23,7 @@ pipeline {
             steps {
                 // Ejecutar el análisis de SonarQube
                 withSonarQubeEnv('sonarqube') {
-                    sh '"${scannerHome}/bin/sonar-scanner"  \
+                    sh 'sonar-scanner  \
                         -Dsonar.projectKey=app \
                         -Dsonar.projectName=app \
                         -Dsonar.projectVersion=1.0 \
