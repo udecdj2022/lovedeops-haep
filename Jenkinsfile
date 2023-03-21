@@ -34,6 +34,7 @@ pipeline {
 
     stage('SonarQube analysis') {
       steps {
+       script {
         sh "cd /var/jenkins_home/workspace/lovedevops-haep/app"
         def appDir = sh(script: 'echo $WORKSPACE/app', returnStdout: true).trim()
         // Run the SonarQube Scanner and send the result to the server
@@ -52,7 +53,7 @@ pipeline {
         }
       }
     }
-  
+  }
 
 
 
