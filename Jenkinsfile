@@ -25,14 +25,17 @@ pipeline {
         sh 'rm -rf /opt/sonar-scanner/sonar-scanner-4.6.0.2311-linux'
         sh 'mv -f sonar-scanner-4.6.0.2311-linux /opt/sonar-scanner'
         sh 'rm sonar-scanner-cli-4.6.0.2311-linux.zip'
-        sh 'export PATH=$PATH:/opt/sonar-scanner/sonar-scanner-4.6.0.2311-linux/bin'
-        sh 'sonar-scanner -v'
+        sh '''echo '#!/bin/bash
+         export PATH=$PATH:/opt/sonar-scanner/sonar-scanner-4.6.0.2311-linux/bin
+         ' > set_path.sh'''
+        sh 'source set_path.sh'
       }
     }
 
     stage('SonarQube analysis') {
       steps {
         sh "cd /var/jenkins_home/workspace/lovedevops-haep/app"
+        def appDir = sh(script: 'echo $WORKSPACE/app', returnStdout: true).trim()
         // Run the SonarQube Scanner and send the result to the server
         withCredentials([string(credentialsId: 'sonarqubeGlobal', variable: 'SONAR_TOKEN')]) {
           sh '. /root/.bashrc && sonar-scanner \
