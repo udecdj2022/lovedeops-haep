@@ -33,6 +33,7 @@ pipeline {
 
     stage('SonarQube analysis') {
       steps {
+        sh "cd /var/jenkins_home/workspace/lovedevops-haep/app"
         // Run the SonarQube Scanner and send the result to the server
         withCredentials([string(credentialsId: 'sonarqubeGlobal', variable: 'SONAR_TOKEN')]) {
           sh 'sonar-scanner \
