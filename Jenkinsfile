@@ -18,23 +18,22 @@ pipeline {
       }
     }
  
-      
-    stage('SonarQube analysis') {
-            steps {
-                // Ejecutar el análisis de SonarQube
-                withSonarQubeEnv('sonarqube') {
-                    sh 'sonar-scanner  \
-                        -Dsonar.projectKey=app \
-                        -Dsonar.projectName=app \
-                        -Dsonar.projectVersion=1.0 \
-                        -Dsonar.sources=app \
-                        -Dsonar.language=php \
-                        -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 \
-                        -Dsonar.host.url=http://scanner.ucol.mx:9000'
-                }
-            }
-        }     
-
+   stage('Static Code Analysis') {
+      steps {
+        withSonarQubeEnv('sonarqube') {
+          sh 'sonar-scanner \
+              -Dsonar.projectKey=app \
+              -Dsonar.projectName=app \
+              -Dsonar.projectVersion=1.0 \
+              -Dsonar.sources=app \
+              -Dsonar.language=php \
+              -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 \
+              -Dsonar.host.url=http://scanner.ucol.mx:9000 \
+              -Dsonar.analysis.mode=preview \
+              -Dsonar.report.export.path=sonar-report.json'
+        }
+      }
+    }   
   
 
     stage('Build image APP') {
