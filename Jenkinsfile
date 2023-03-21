@@ -23,7 +23,7 @@ pipeline {
    stage('Static Code Analysis') {
       steps {
         withSonarQubeEnv('sonarqube') {
-          sh '"${env.SONAR_SCANNER_HOME}/bin/sonar-scanner" \
+          sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner \
               -Dsonar.projectKey=app \
               -Dsonar.projectName=app \
               -Dsonar.projectVersion=1.0 \
@@ -31,7 +31,7 @@ pipeline {
               -Dsonar.language=php \
               -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 \
               -Dsonar.host.url=http://scanner.ucol.mx:9000 \
-              -Dsonar.report.export.path=sonar-report.json'
+              -Dsonar.report.export.path=sonar-report.json"
         }
       }
     }   
