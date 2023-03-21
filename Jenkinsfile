@@ -25,7 +25,8 @@ pipeline {
         sh 'rm -rf /opt/sonar-scanner/sonar-scanner-4.6.0.2311-linux'
         sh 'mv -f sonar-scanner-4.6.0.2311-linux /opt/sonar-scanner'
         sh 'rm sonar-scanner-cli-4.6.0.2311-linux.zip'
-        sh 'export PATH=$PATH:/opt/sonar-scanner/sonar-scanner-4.6.0.2311-linux/bin'
+        sh 'echo "export PATH=$PATH:/opt/sonar-scanner/sonar-scanner-4.6.0.2311-linux/bin" >> ~/.bashrc'
+        sh 'source ~/.bashrc'
         sh 'sonar-scanner -v'
       }
     }
