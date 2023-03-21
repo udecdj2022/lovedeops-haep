@@ -24,9 +24,10 @@ pipeline {
       }
     }
  
-   stage('SonarQube analysis') {
-        steps {
-            def scannerHome = tool 'SonarScanner 4.8.0.2856';
+      
+    stage('SonarQube analysis') {
+            steps {
+                // Ejecutar el análisis de SonarQube
                 withSonarQubeEnv('sonarqube') {
                     sh "${scannerHome}/bin/sonar-scanner"  \
                         -Dsonar.projectKey=app \
@@ -38,8 +39,7 @@ pipeline {
                         -Dsonar.host.url=http://scanner.ucol.mx:9000
                 }
             }
-        }
-        
+        }     
 
   
 
