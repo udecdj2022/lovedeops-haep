@@ -5,6 +5,8 @@ pipeline {
     dockeradmin = "udecdj2022/phpmyadmin"
     dockerimageapp = ""
     dockerimagemyadmin = ""
+    SONAR_SCANNER_HOME = "/opt/sonar-scanner"
+    PATH = "${env.SONAR_SCANNER_HOME}/bin:${env.PATH}"
   }
 
   agent any
@@ -21,7 +23,7 @@ pipeline {
    stage('Static Code Analysis') {
       steps {
         withSonarQubeEnv('sonarqube') {
-          sh 'sonar-scanner \
+          sh '${env.SONAR_SCANNER_HOME}/bin/sonar-scanner \
               -Dsonar.projectKey=app \
               -Dsonar.projectName=app \
               -Dsonar.projectVersion=1.0 \
