@@ -35,7 +35,7 @@ pipeline {
         sh "cd /var/jenkins_home/workspace/lovedevops-haep/app"
         // Run the SonarQube Scanner and send the result to the server
         withCredentials([string(credentialsId: 'sonarqubeGlobal', variable: 'SONAR_TOKEN')]) {
-          sh 'sonar-scanner \
+          sh '. /root/.bashrc && sonar-scanner \
             -Dsonar.host.url=http://scanner.ucol.mx:9000 \
             -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 \
             -Dsonar.projectKey=app \
