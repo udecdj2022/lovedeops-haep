@@ -18,7 +18,6 @@ pipeline {
       }
     }
 
-   stages {
     stage('Install SonarQube Scanner') {
       steps {
         sh 'curl -L -O https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.0.2311-linux.zip'
