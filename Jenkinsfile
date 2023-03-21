@@ -22,7 +22,7 @@ pipeline {
  
    stage('Static Code Analysis') {
       steps {
-        echo "Token: ${sonarqubeGlobal}"
+        echo "Token: ${env.sonarqubeGlobal}"
         withSonarQubeEnv('sonarqube') {
           sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner -X \
               -Dsonar.projectKey=app \
