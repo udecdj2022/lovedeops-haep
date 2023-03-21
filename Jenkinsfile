@@ -24,7 +24,6 @@ pipeline {
         sh 'unzip sonar-scanner-cli-4.6.0.2311-linux.zip'
         sh 'mv -f sonar-scanner-4.6.0.2311-linux /opt/sonar-scanner'
         sh 'rm sonar-scanner-cli-4.6.0.2311-linux.zip'
-        //sh 'ln -s /opt/sonar-scanner/bin/sonar-scanner /usr/bin/sonar-scanner'
         sh 'export PATH=$PATH:/opt/sonar-scanner/bin'
         sh 'sonar-scanner -v'
       }
