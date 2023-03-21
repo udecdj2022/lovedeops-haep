@@ -19,36 +19,12 @@ pipeline {
     }
 
 
-         stage('Checkout 2') {
-      steps {
-        // Checkout your PHP code from the repository
-        git url: 'https://github.com/udecdj2022/lovedeops-haep.git'
-      }
-    }
-
-     stage('SonarQube analysis') {
-      steps {
-        sh "cd /var/jenkins_home/workspace/lovedevops-haep/"
-        // Run the SonarQube Scanner container inside the Jenkins container and send the result to the server
-        withCredentials([string(credentialsId: 'sonarqubeGlobal', variable: 'SONAR_TOKEN')]) {
-          sh 'docker run --rm \
-            --network host \
-            -v /var/jenkins_home/workspace/lovedevops-haep/app:/usr/src \
-            sonarsource/sonar-scanner-cli \
-            -Dsonar.host.url=http://scanner.ucol.mx:9000 \
-            -Dsonar.login=sqa_81e6208efcb88891bc709a7dfc94d303c91b4f87 \
-            -Dsonar.projectKey=app \
-            -Dsonar.sources=. \
-            -Dsonar.projectName=app \
-            -Dsonar.projectVersion=1.0 \
-            -Dsonar.projectDescription=app \
-            -Dsonar.language=php \
-            -Dsonar.php.coverage.reportPaths=coverage.xml \
-            -Dsonar.php.tests.reportPath=phpunit.xml'
+stage('SonarTests') {
+        docker.image('newtmitch/sonar-scanner').inside('-v /var/run/docker.sock:/var/run/docker.sock --entrypoint=""') {
+            sh "/usr/local/bin/sonar-scanner --version"
         }
-      }
     }
-  
+} 
 
 
     stage('Build image APP') {
