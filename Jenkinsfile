@@ -22,7 +22,7 @@ pipeline {
     stage('SonarQube analysis') {
             steps {
                 // Ejecutar el análisis de SonarQube
-                withSonarQubeEnv('sonarqube2') {
+                withSonarQubeEnv('sonarqube3') {
                     sh 'sonar-scanner  \
                         -Dsonar.projectKey=app \
                         -Dsonar.projectName=app \
