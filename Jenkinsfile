@@ -62,6 +62,22 @@ pipeline {
     }
   }
 
+//	stage('Pushing Image APP') {
+//  	   environment {
+//    	   registryCredential = 'githubhernan'
+//        }
+//         steps{
+//           dir('app'){
+//            script {
+//               docker.withRegistry( 'https://ghcr.io', registryCredential ) {
+//               dockerimageapp.push("v1")
+//        }
+//      }
+//    }
+//  }
+//}
+
+
        stage('Build image MYADMIN') {
       steps{
         dir('phpmyadmin'){
@@ -86,16 +102,6 @@ pipeline {
       }
     }
   }
-
-//   stage('Static Code Analysis') {
-//   steps {
-//      dir('app'){
-//      withSonarQubeEnv('scanner') {
-//       sh 'mvn sonar:sonar -Dsonar.language=php'
-//        }
-//      }
-//    }
-//  }
 
    stage('APLICANDO DEPLOYMENTS APP'){
    steps{
